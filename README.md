@@ -30,7 +30,7 @@ To launch WaveCrest GUI, in R run: grDevices, gplots, SCPattern
 
 > runGitHub('jeeachoi/DEVisual_Shiny')
 
-![Screenshot](https://github.com/jeeachoi/DEVisual_Shiny/figs/devisual.png)
+![Screenshot](https://github.com/jeeachoi/DEVisual_Shiny/tree/master/figs/devisual.png)
 
 ## 2. Input files
 
@@ -48,7 +48,7 @@ The third input file is the DE gene list. It could be csv or tab delimited file.
 If DE gene list input file is missing, all genes will considered as gene of interest. If a gene is not included in the expression matrix, the gene will be excluded for the visualization.
 
 ### Example files
-An example input file **exData.csv**, **Condition.csv**, and **DEList.csv** could be found at https://github.com/jeeachoi/DEVisual_Shiny/example_data   
+Example input files for two conditions: **TwoCondMat.csv**, **TwoCond.csv**, and **DEmarker.csv** and example input files for multiple conditions: **MultiCondMat.csv**, **MultiCond.csv**, and **DEmarker.csv** could be found at https://github.com/jeeachoi/DEVisual_Shiny/tree/master/example_data   
 
 ## 3. Customize options
 
