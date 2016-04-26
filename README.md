@@ -30,7 +30,7 @@ To launch WaveCrest GUI, in R run: grDevices, gplots, SCPattern
 
 > runGitHub('jeeachoi/DEVisual_Shiny')
 
-![Screenshot](https://github.com/jeeachoi/DEVisual_Shiny/tree/master/figs/devisual.png)
+![Screenshot](https://github.com/jeeachoi/DEVisual_Shiny/blob/master/figs/devisual.png)
 
 ## 2. Input files
 
