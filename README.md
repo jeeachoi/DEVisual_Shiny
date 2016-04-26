@@ -3,7 +3,7 @@
 R/shiny app for DE visualization
 
 ## 1. Installation
-This app requires the following packages:
+This app requires the following packages: grDevices, gplots, SCPattern
 
 To install the shiny packages, in R run:
 
@@ -24,7 +24,7 @@ To install the shiny packages, in R run:
 Or install locally.
 
 ### Run the app
-To launch GUI, in R run: grDevices, gplots, SCPattern
+To launch GUI, in R run: 
 
 > library(shiny)
 
