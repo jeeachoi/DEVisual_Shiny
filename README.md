@@ -24,7 +24,7 @@ To install the shiny packages, in R run:
 Or install locally.
 
 ### Run the app
-To launch WaveCrest GUI, in R run: grDevices, gplots, SCPattern
+To launch GUI, in R run: grDevices, gplots, SCPattern
 
 > library(shiny)
 
