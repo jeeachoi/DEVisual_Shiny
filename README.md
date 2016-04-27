@@ -54,7 +54,7 @@ Example input files for two conditions: **TwoCondMat.csv**, **TwoCond.csv**, and
 
 - Plot heatmap?
 - Plot Violin plot for each DE gene?
-- Need normalization? If Yes, normalization will be performed. If the input matrix is normalized (e.g. by median-by-ratio normalization or TMM), this option should be disabled. In addition, if the input expression matrix only contains a small set of genes, it is suggested to normalize using all genes first before taking the subset.
+- Need normalization? If Yes, median-by-ratio ormalization will be performed. If the input matrix is normalized (e.g. by median-by-ratio normalization or TMM), this option should be disabled. In addition, if the input expression matrix only contains a small set of genes, it is suggested to normalize using all genes first before taking the subset.
 - Adjust outlier? If Yes, values <= 5 th quantile (>= 95 th quantile) will be pushed to qt1 th quantile (qt2 th quantile). 
 - For Heatmap: Whether cluster by row
 - For Heatmap: Whether scale the data within a row
