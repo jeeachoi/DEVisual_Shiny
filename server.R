@@ -146,10 +146,11 @@ shinyServer(function(input, output, session) {
 
 	  daty <- data.frame(y, condition, shps)
 	  g <- ggplot(daty, aes(factor(condition), y), aes(shape = shps))
+          if(logT){
 	  g + geom_jitter(alpha = 0.5, color = "black", position = position_jitter(width = 0.15), aes(shape = shps), 
 			  show.legend = FALSE) + geom_violin(data = daty[daty$y >  0, ], alpha = 0.5, aes(fill = factor(condition)), 
 							     show.legend = FALSE,  scale = "count") + ggtitle(paste0(title.gene)) + 
-		  theme(plot.title = element_text(size = 20, face = "bold", vjust = 2)) + labs(x = "Condition") + 
+		  theme(plot.title = element_text(size = 20, face = "bold", vjust = 2)) + labs(x = "Condition", y = "log2(expression)") + 
 		  theme(axis.text.x = element_text(size = 14, vjust = 0.5), 
 	          axis.text.y = element_text(size = 14, vjust = 0.5), 
 	          axis.title.x = xlabel, axis.title.y = ylabel,  axis.line = element_line(colour = "black"),
@@ -157,6 +158,20 @@ shinyServer(function(input, output, session) {
 	          panel.grid.minor = element_blank(),
 	          panel.border = element_blank() ) +
 		  theme(axis.line = element_line(color = 'black'))#draws x and y axis line
+        }
+	if(!logT){
+	  g + geom_jitter(alpha = 0.5, color = "black", position = position_jitter(width = 0.15), aes(shape = shps), 
+			  show.legend = FALSE) + geom_violin(data = daty[daty$y >  0, ], alpha = 0.5, aes(fill = factor(condition)), 
+							     show.legend = FALSE,  scale = "count") + ggtitle(paste0(title.gene)) + 
+		  theme(plot.title = element_text(size = 20, face = "bold", vjust = 2)) + labs(x = "Condition", y = "Expression") + 
+		  theme(axis.text.x = element_text(size = 14, vjust = 0.5), 
+	          axis.text.y = element_text(size = 14, vjust = 0.5), 
+	          axis.title.x = xlabel, axis.title.y = ylabel,  axis.line = element_line(colour = "black"),
+	          panel.grid.major = element_blank(),
+	          panel.grid.minor = element_blank(),
+	          panel.border = element_blank() ) +
+		  theme(axis.line = element_line(color = 'black'))#draws x and y axis line	
+	}
 	}
 	
 	# Violin     
