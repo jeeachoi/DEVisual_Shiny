@@ -5,6 +5,8 @@ R/shiny app for DE visualization
 ## 1. Installation
 This app requires the following packages: cowplot, ggplot2, gplots
 
+R version ≥ 3.3.0 is needed. For mac user, make sure whether xcode is installed.
+
 To install the shiny and relevant packages, in R run:
 
 > install.packages("shiny")
