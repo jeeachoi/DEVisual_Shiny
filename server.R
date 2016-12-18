@@ -1,8 +1,10 @@
 library(shiny)
 library(shinyFiles)
 library(gplots)
-library(grDevices)
-library(SCPattern)
+library(ggplot2)
+library(cowplot)
+#library(grDevices)
+
 
 # Define server logic for slider examples
 shinyServer(function(input, output, session) {
@@ -13,7 +15,8 @@ shinyServer(function(input, output, session) {
   
   In <- reactive({
     print(input$Outdir)
-    outdir <- paste0("~/",input$Outdir[[1]][[2]],"/")
+    #outdir <- paste0("~", input$Outdir[[1]][[2]], "/")
+    outdir <- paste0("~",do.call("file.path",input$Outdir[[1]]),"/")
     print(outdir)
     
     the.file <- input$filename$name
@@ -111,18 +114,65 @@ shinyServer(function(input, output, session) {
 		scale=sc,col=Col)
         dev.off()
 	    print("Heatmap...")
+    }
+	
+	ScdcViolin = function (y, cond, logT = TRUE, title.gene = "", 
+	                       conditionLabels = NULL, axes.titles = TRUE) 
+	{
+	  require(ggplot2)
+	  if (!is.factor(cond)) cond <- factor(cond, levels = unique(cond))
+
+	  shps <- rep("a", length(cond))
+	  
+	  if (logT) y <- log2(y + 1)
+	  
+	  if (length(conditionLabels) == 2) {
+	    condition = c()
+	    condition[cond == levels(cond)[1]] <- conditionLabels[1]
+	    condition[cond == levels(cond)[2]] <- conditionLabels[2]
+	  }
+	  if (length(conditionLabels) > 2) {
+	    condition = c()
+	    for(l in 1:length(conditionLabels)){
+	      condition[cond ==levels(cond)[l]] <-conditionLabels[l]
+	    }
+	  }
+	  if (axes.titles) {
+	    xlabel <- ggplot2::element_text()
+	    ylabel <- ggplot2::element_text()
+	  } else {
+	    xlabel <- ylabel <- ggplot2::element_blank()
+	  }
+
+	  daty <- data.frame(y, condition, shps)
+	  g <- ggplot(daty, aes(factor(condition), y), aes(shape = shps))
+	  g + geom_jitter(alpha = 0.5, color = "black", position = position_jitter(width = 0.15), 
+	                  aes(shape = shps), 
+	                  show.legend = FALSE) + geom_violin(data = daty[daty$y > 
+	                                                                                      0, ], alpha = 0.5, aes(fill = factor(condition)), show.legend = FALSE, 
+	                                                                        scale = "count") + ggtitle(paste0(title.gene)) + theme(plot.title = element_text(size = 20, 
+	                                                                                                                                                         face = "bold", vjust = 2)) + labs(x = "Condition") + 
+	    theme(axis.text.x = element_text(size = 14, vjust = 0.5), 
+	          axis.text.y = element_text(size = 14, vjust = 0.5), 
+	          axis.title.x = xlabel, axis.title.y = ylabel,  axis.line = element_line(colour = "black"),
+	          panel.grid.major = element_blank(),
+	          panel.grid.minor = element_blank(),
+	          panel.border = element_blank() ) +
+	    #draws x and y axis line
+	    theme(axis.line = element_line(color = 'black'))
 	}
-    
+	
 	# Violin     
     if(List$ViolinTF){
-        pdf(List$ViolinPlot, height=15,width=15)
-		par(mfrow=c(4,4))
-		for(i in 1:dim(Mat)[1]){
-			if(List$logTF)VioFun(rownames(Mat)[i],log2(Mat+1),List$Cond, Dropout.remove=FALSE,ylab="log2(expression+1)")		
-			if(!List$logTF)VioFun(rownames(Mat)[i],Mat,List$Cond, Dropout.remove=FALSE,ylab="Expression")			
-		}
-      dev.off()
-	    print("Violin Plot...")
+      #pdf(List$ViolinPlot, height=15,width=15)
+		  for(i in 1:dim(Mat)[1]){
+			  save_plot(paste0(List$ViolinPlot,"_",rownames(Mat)[i],".png"),
+			            ScdcViolin(Mat[i,]+1,List$Cond, logT=List$logTF,
+			                       title.gene=rownames(Mat)[i],
+			                       conditionLabels=c(unique(List$Cond)) ))		
+		  }
+      #dev.off()
+	    print("Violin Plot")
     }
 	DEG = rownames(Mat)
 	List=c(List, list(Sig=DEG))  
