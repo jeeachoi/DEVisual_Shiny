@@ -57,7 +57,7 @@ Example input files for two conditions: **TwoCondDataMat.csv**, **TwoCond.csv**,
 - For Heatmap: Whether scale the data within a row
 - For Heatmap: Whether change the color theme. If No, Yellow/Purple theme will be used.
 - For Violin Plot: Whether plot the expressions in log scale.
-- Output directory, will be set as home directory (~/) if it is empty.
+- Output directory, needs to be set. It will show error if not.
 -	Output file name for the heatmap
 -	Output file name for the Violin plots
 
